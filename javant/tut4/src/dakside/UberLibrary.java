@@ -1,3 +1,5 @@
+package dakside;
+
 /*
  * The MIT License
  *
@@ -21,20 +23,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-import dakside.UberLibrary;
-
 /**
- * Tutorial 3: Basic project structure
+ * A very sophisticated library
  *
- * @author LeTuanAnh <tuananh.ke@gmail.com>
+ * @author Le Tuan Anh <tuananh.ke@gmail.com>
  */
-public class MainApp {
+public class UberLibrary {
 
-    public static void main(String[] args) {
-        UberLibrary.announce("I will use stuff from 'dakside' package");
-        int numA = 1;
-        int numB = 2;
-        int result = UberLibrary.sum(numA, numB);
-        UberLibrary.announce(String.format("%d + %d = %d\n", numA, numB, result));
+    /**
+     * Calculate the sum of two integers
+     * @param firstNum 
+     * @param secondNum
+     * @return the result as an integer
+     */
+    public static int sum(int firstNum, int secondNum) {
+        return firstNum + secondNum;
+    }
+
+    /**
+     * Announce something (proudly)
+     * @param message Your important message string
+     */
+    public static void announce(String message) {
+        System.out.format("People said that: %s\n", message);
     }
 }

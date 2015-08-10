@@ -24,12 +24,16 @@
 import dakside.UberLibrary;
 
 /**
- * Tutorial 3: Basic project structure
+ * Tutorial 4: Basic project structure with Ant script
  *
  * @author LeTuanAnh <tuananh.ke@gmail.com>
  */
 public class MainApp {
 
+    /**
+     * The entry point of the main app
+     * @param args 
+     */
     public static void main(String[] args) {
         UberLibrary.announce("I will use stuff from 'dakside' package");
         int numA = 1;
