@@ -1,4 +1,4 @@
-package dakside;
+package dakside.common;
 
 /*
  * The MIT License
