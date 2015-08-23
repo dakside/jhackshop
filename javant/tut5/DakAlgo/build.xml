@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<project name="Java Application" default="build">
+
+<!--Configuration-->
+<property name="src.dir" value="src"/>
+<property name="build.dir" value="build"/>
+<property name="dist.dir" value="dist"/>
+<property name="app.jar" value="dakalgo.jar"/>
+<!--Doc config-->
+<property name="doc.title" value="Tutorial 5 - jHackshop@Dakside"/>
+<property name="doc.dir" value="doc/javadoc"/>
+
+
+<!--Targets-->
+<target name="prepare" description="Create build dir">
+    <!--Create build dir for output files-->
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+</target>
+
+<target name="compile" depends="clean,prepare" description="Compile source code">
+   <javac destdir="${build.dir}" debug="false" optimize="true">
+      <src path="${src.dir}"/>
+   </javac>
+</target>
+
+<target name="package" depends="clean,compile">
+        <jar destfile="${dist.dir}/${app.jar}" basedir="${build.dir}">
+            <!--<manifest>
+                <attribute name="Main-Class"
+                    value="MainApp"/>
+            </manifest>
+			-->
+        </jar>
+</target>
+
+<target name="gendoc" description="Generate Java doc">
+    <javadoc packagenames="dakside.*"
+             sourcepath="src"
+             defaultexcludes="yes"
+             destdir="${doc.dir}"
+             author="true"
+             version="true"
+             windowtitle="${doc.title}">
+    <doctitle><![CDATA[${Tutorial 5 - Working with multiple Java projects}]]></doctitle>
+    <bottom><![CDATA[<i>Copyright &#169; 2015 Dakside Group. All Rights Reserved.</i>]]></bottom>
+    <group title="dakside Packages" packages="dakside.*"/>
+    <link href="http://www.dakside.org"/>
+    </javadoc>
+</target>
+
+<target name="build" depends="package,gendoc">
+</target>
+
+<target name="clean" description="Clean output directories">
+   <delete dir="${build.dir}" />
+   <delete dir="${dist.dir}" />
+   <delete dir="${doc.dir}" />
+</target>
+
+</project>
