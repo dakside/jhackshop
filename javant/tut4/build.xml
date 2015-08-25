@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
-<project name="Java Application" default="build">
+<project name="jhackshop - Tutorial 4" default="build">
 
+<!--
+A very basic Ant script
+More information:
+https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
+-->
+    
 <!--Configuration-->
 <property name="src.dir" value="src"/>
 <property name="build.dir" value="build"/>

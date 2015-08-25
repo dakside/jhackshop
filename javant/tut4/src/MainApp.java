@@ -26,7 +26,7 @@ import dakside.UberLibrary;
 /**
  * Tutorial 4: Basic project structure with Ant script
  *
- * @author LeTuanAnh <tuananh.ke@gmail.com>
+ * @author LeTuanAnh {@literal <tuananh.ke@gmail.com>}
  */
 public class MainApp {
 
