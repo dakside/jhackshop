@@ -1,7 +1,7 @@
-#!/usr/bin/sh
+#!/bin/bash
 
 # Compile source code & build executable file
 ant build
 
 # Run application
-java -jar dist/dakalgo.jar
+ant run
