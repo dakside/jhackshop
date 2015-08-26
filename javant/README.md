@@ -7,6 +7,7 @@ Materials for Dakside's Java+Ant workshop to help members understand the basic c
 * Tutorial 3: Basic project structure (separate source, build and distribution folders)
 * Tutorial 4: Using Ant script
 * Tutorial 5: Developing a system with multiple projects (each project is a module)
-* Tutorial 6: Free-form Netbeans project and custom libraries [To be added by Chinh]
-* [TBA] Tutorial 7: GUI with Java
-* [TBA] Tutorial 8: Working with SQLite databases
+* Tutorial 6: Java Unit Testing with JUnit
+* [TBA]: Free-form Netbeans project and custom libraries [To be added by Chinh]
+* [TBA]: GUI with Java
+* [TBA]: Working with SQLite databases
