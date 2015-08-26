@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="jhackshop - Tutorial 4" default="build">
+<project name="AlgoDemo" default="build">
 
 <!--
 A very basic Ant script
@@ -8,13 +8,13 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 -->
     
 <!--Configuration-->
-<property name="app.name" value="tut4"/>
+<property name="app.name" value="algodemo"/>
 <property name="src.dir" value="src"/>
 <property name="build.dir" value="build"/>
 <property name="dist.dir" value="dist"/>
 <property name="app.jar" value="${app.name}.jar"/>
 <!--Doc config-->
-<property name="doc.title" value="Tutorial 4 - jHackshop@Dakside"/>
+<property name="doc.title" value="Tutorial 5: Algorithm Demo Application - jHackshop@Dakside"/>
 <property name="doc.dir" value="doc/javadoc"/>
 
 
@@ -48,7 +48,7 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
              author="true"
              version="true"
              windowtitle="${doc.title}">
-    <doctitle><![CDATA[${Tutorial 4 - Something you should do (but you didn't}]]></doctitle>
+    <doctitle><![CDATA[${doc.title}]]></doctitle>
     <bottom><![CDATA[<i>Copyright &#169; 2015 Dakside Group. All Rights Reserved.</i>]]></bottom>
     <group title="dakside Packages" packages="dakside.*"/>
     <link href="http://www.dakside.org"/>
