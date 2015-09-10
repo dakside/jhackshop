@@ -5,32 +5,76 @@
 <property name="src.dir" value="src"/>
 <property name="build.dir" value="build"/>
 <property name="dist.dir" value="dist"/>
+<property name="dist.lib.dir" location="dist/lib" />
+
 <property name="app.jar" value="algodemo.jar"/>
+<property name="lib.dir" value="lib"/>
+
+<property name="ext.project.dir" value="../DakAlgo"/>
+<property name="ext.project.jar" value="${ext.project.dir}/dist/dakalgo.jar"/>
+<!--<property name="classpath" value="${lib.dir}/dakalgo.jar"/>-->
+<!-- example of classpath: classpath="${extdir}/imageio.jar:${extdir}/jama.jar:${basedir}/ij.jar" -->
+
 <!--Doc config-->
 <property name="doc.title" value="Tutorial 5 - jHackshop@Dakside"/>
 <property name="doc.dir" value="doc/javadoc"/>
 
+<!--Classpath-->
+<path id="classpath">
+	<!-- <fileset dir="${lib.dir}" includes="**/*.jar"/> --> <!-- method 1 -->
+	<fileset dir="${basedir}/"> <!-- method 2 -->
+		<include name="${lib.dir}/*.jar" />
+		<exclude name="${lib.dir}/*sources.jar"/>
+		<exclude name="${lib.dir}/*javadoc.jar"/>
+	</fileset>
+</path>
 
 <!--Targets-->
+<!-- ref: https://ant.apache.org/manual/ -->
 <target name="prepare" description="Create build dir">
     <!--Create build dir for output files-->
     <mkdir dir="${build.dir}"/>
+	<mkdir dir="${lib.dir}"/>
     <mkdir dir="${dist.dir}"/>
+	<mkdir dir="${dist.lib.dir}" />
+	<copy file="${ext.project.jar}" todir="${lib.dir}"/>
 </target>
 
+<!-- include external lib here, modify classpath if required --> 
 <target name="compile" depends="clean,prepare" description="Compile source code">
-   <javac destdir="${build.dir}" debug="false" optimize="true">
+   <javac destdir="${build.dir}" classpathref="classpath" debug="false" optimize="true">
       <src path="${src.dir}"/>
    </javac>
 </target>
 
-<target name="package" depends="clean,compile">
-        <jar destfile="${dist.dir}/${app.jar}" basedir="${build.dir}">
-            <manifest>
-                <attribute name="Main-Class"
-                    value="dakside.MainApp"/>
-            </manifest>
-        </jar>
+<!-- constructs the external libraries classpath name -->
+<pathconvert property="classpath.name" pathsep=" ">
+	<path refid="classpath" />
+	<mapper>
+		<chainedmapper>
+			<flattenmapper />
+			<globmapper from="*.jar" to="lib/*.jar" />
+		</chainedmapper>
+	</mapper>
+</pathconvert>
+
+<!-- copy the external lib to distribution -->
+<target name="copy-dependencies">
+	<copy todir="${dist.lib.dir}">
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</copy>
+</target>
+
+<!-- build jar with external lib included, modify classpath if required --> 	
+<target name="package" depends="clean,compile,copy-dependencies">
+	<echo message="classpath.name: ${classpath.name}" />
+	
+	<jar destfile="${dist.dir}/${app.jar}" basedir="${build.dir}">
+		<manifest>
+			<attribute name="Main-Class" value="dakside.MainApp"/>
+			<attribute name="Class-Path" value="${classpath.name}" /> <!-- to be done ... -->
+		</manifest>
+	</jar>
 </target>
 
 <target name="gendoc" description="Generate Java doc">

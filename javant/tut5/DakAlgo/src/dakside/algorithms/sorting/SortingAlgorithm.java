@@ -25,9 +25,9 @@ package dakside.algorithms.sorting;
  */
 
 /**
- * The @SortingAlgorithm interface is the outline for sorting algorithms
+ * The {@link SortingAlgorithm} interface is the outline for sorting algorithms
  *
- * @author HoangDucChinh <dc.hoang.vn@gmail.com>
+ * @author HoangDucChinh {@literal <dc.hoang.vn@gmail.com>}
  */
 public interface SortingAlgorithm {
 

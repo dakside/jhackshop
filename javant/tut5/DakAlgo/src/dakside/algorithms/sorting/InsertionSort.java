@@ -1,4 +1,4 @@
-package dakside.algorithms;
+package dakside.algorithms.sorting;
 
 /*
  * The MIT License
@@ -24,33 +24,34 @@ package dakside.algorithms;
  * THE SOFTWARE.
  */
 
- import dakside.algorithms.sorting.SortingAlgorithm;
- import dakside.algorithms.sorting.*;
- 
 /**
- * The {@link AlgorithmFactory} class provides for creating algorithm objects
+ * The {@link InsertionSort} class implements {@link SortingAlgorithm} interface with the Insertion Sort algorithm
  *
- * @author Hoang Duc Chinh &lt;dc.hoang.vn@gmail.com&gt;
+ * @author HoangDucChinh {@literal <dc.hoang.vn@gmail.com>}
  */
-public class AlgorithmFactory {
+public class InsertionSort implements SortingAlgorithm {
 
     /**
-     * Creates a sorting algorithm
-     * @param algorithmName Algorithm name
-	 * @return The requested algorithm if found
-	 * @throws AlgorithmNotFoundException if the algorithm name cannot be found
+     * Sort an array of integers
+     * @param inputs Unsorted array
+	 * @return Sorted array
      */
-	 public SortingAlgorithm createSortingAlgorithm(String algorithmName) throws AlgorithmNotFoundException{
-		 if (algorithmName == null){
-			return null;
-		 }
-		 
-		 if (algorithmName.equalsIgnoreCase("BubbleSort")){
-			 return new BubbleSort();
-		 } else if (algorithmName.equalsIgnoreCase("InsertionSort")){			 
-			 return new InsertionSort();
-		 } else {
-			 throw new AlgorithmNotFoundException("Cannot find the requested algorithm: " + algorithmName);
-		 }			 
-	 }
+	 ///*
+	@Override
+    public int[] sort(int[] inputs){
+		int temp;		
+		int i;
+		int j;
+		
+		for (i = 1; i < inputs.length; i++){
+			temp = inputs[i];
+			j = i;
+			while (j>0 && inputs[j-1]>temp){
+				inputs[j] = inputs[j-1];
+				j--;
+			}
+			inputs[j]=temp;
+		}
+		return inputs;
+	}
 }

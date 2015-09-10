@@ -29,6 +29,11 @@ package dakside;
  *
  * @author HoangDucChinh <dc.hoang.vn@gmail.com>
  */
+import java.util.Scanner;
+import dakside.algorithms.AlgorithmFactory; 
+import dakside.algorithms.AlgorithmNotFoundException;
+import dakside.algorithms.sorting.SortingAlgorithm;
+
 public class MainApp {
 
     /**
@@ -36,6 +41,38 @@ public class MainApp {
      * @param args 
      */
     public static void main(String[] args) {
-		System.out.println("Hello world!");
+		Scanner scan= new Scanner(System.in);
+		int[] inputArr = {1, 3, 123, 43, 5, 10, 21, 7, 89, 45, 93};
+		
+		String text = "";		
+		
+		while (!text.equalsIgnoreCase("exit")){
+			System.out.println("Sorting demo!");
+			System.out.println("Please select a sorting algorithm (BubbleSort or InsertionSort), type EXIT to escape");
+			text= scan.nextLine();
+			
+			if (!text.equalsIgnoreCase("exit")){
+				try{
+					SortingAlgorithm sorting = new AlgorithmFactory().createSortingAlgorithm(text);
+					int[] outputArr = new int[inputArr.length];
+					System.arraycopy(inputArr,0,outputArr,0,outputArr.length);
+					
+					sorting.sort(outputArr);
+					System.out.println("The unsorted array is: ");
+					for (int element:inputArr){
+						System.out.printf("%d ", element);
+					}
+					System.out.println("");
+					System.out.println("The result is: ");
+					for (int i = 0; i < outputArr.length; i++){
+						System.out.printf("%d ", outputArr[i]);
+					}
+					System.out.println("");
+				}
+				catch (AlgorithmNotFoundException e){
+					System.err.println("Error found: " + e.getMessage());
+				}
+			}
+		}	
     }
 }
