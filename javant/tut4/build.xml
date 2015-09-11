@@ -1,11 +1,18 @@
 <?xml version="1.0"?>
-<project name="Java Application" default="build">
+<project name="jhackshop - Tutorial 4" default="build">
 
+<!--
+A very basic Ant script
+More information:
+https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
+-->
+    
 <!--Configuration-->
+<property name="app.name" value="tut4"/>
 <property name="src.dir" value="src"/>
 <property name="build.dir" value="build"/>
 <property name="dist.dir" value="dist"/>
-<property name="app.jar" value="tut4.jar"/>
+<property name="app.jar" value="${app.name}.jar"/>
 <!--Doc config-->
 <property name="doc.title" value="Tutorial 4 - jHackshop@Dakside"/>
 <property name="doc.dir" value="doc/javadoc"/>
@@ -49,6 +56,10 @@
 </target>
 
 <target name="build" depends="package,gendoc">
+</target>
+
+<target name="run" depends="package">
+        <java jar="${dist.dir}/${app.jar}" fork="true"/>
 </target>
 
 <target name="clean" description="Clean output directories">

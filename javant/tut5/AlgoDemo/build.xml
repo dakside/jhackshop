@@ -1,14 +1,22 @@
 <?xml version="1.0"?>
-<project name="Java Application" default="build">
+<project name="AlgoDemo" default="build">
 
+<!--
+A very basic Ant script
+More information:
+https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
+-->
+    
 <!--Configuration-->
+<property name="app.name" value="algodemo"/>
+
 <property name="src.dir" value="src"/>
 <property name="build.dir" value="build"/>
 <property name="dist.dir" value="dist"/>
 <property name="dist.lib.dir" location="dist/lib" />
-
-<property name="app.jar" value="algodemo.jar"/>
 <property name="lib.dir" value="lib"/>
+
+<property name="app.jar" value="${app.name}.jar"/>
 
 <property name="ext.project.dir" value="../DakAlgo"/>
 <property name="ext.project.jar" value="${ext.project.dir}/dist/dakalgo.jar"/>
@@ -16,18 +24,8 @@
 <!-- example of classpath: classpath="${extdir}/imageio.jar:${extdir}/jama.jar:${basedir}/ij.jar" -->
 
 <!--Doc config-->
-<property name="doc.title" value="Tutorial 5 - jHackshop@Dakside"/>
+<property name="doc.title" value="Tutorial 5: Algorithm Demo Application - jHackshop@Dakside"/>
 <property name="doc.dir" value="doc/javadoc"/>
-
-<!--Classpath-->
-<path id="classpath">
-	<!-- <fileset dir="${lib.dir}" includes="**/*.jar"/> --> <!-- method 1 -->
-	<fileset dir="${basedir}/"> <!-- method 2 -->
-		<include name="${lib.dir}/*.jar" />
-		<exclude name="${lib.dir}/*sources.jar"/>
-		<exclude name="${lib.dir}/*javadoc.jar"/>
-	</fileset>
-</path>
 
 <!--Targets-->
 <!-- ref: https://ant.apache.org/manual/ -->
@@ -39,6 +37,16 @@
 	<mkdir dir="${dist.lib.dir}" />
 	<copy file="${ext.project.jar}" todir="${lib.dir}"/>
 </target>
+
+<!--Classpath-->
+<path id="classpath">
+	<!-- <fileset dir="${lib.dir}" includes="**/*.jar"/> --> <!-- method 1 -->
+	<fileset dir="${basedir}/"> <!-- method 2 -->
+		<include name="${lib.dir}/*.jar" />
+		<exclude name="${lib.dir}/*sources.jar"/>
+		<exclude name="${lib.dir}/*javadoc.jar"/>
+	</fileset>
+</path>
 
 <!-- include external lib here, modify classpath if required --> 
 <target name="compile" depends="clean,prepare" description="Compile source code">
@@ -72,7 +80,7 @@
 	<jar destfile="${dist.dir}/${app.jar}" basedir="${build.dir}">
 		<manifest>
 			<attribute name="Main-Class" value="dakside.MainApp"/>
-			<attribute name="Class-Path" value="${classpath.name}" /> <!-- to be done ... -->
+			<attribute name="Class-Path" value="${classpath.name}" />
 		</manifest>
 	</jar>
 </target>
@@ -85,7 +93,7 @@
              author="true"
              version="true"
              windowtitle="${doc.title}">
-    <doctitle><![CDATA[${Tutorial 5 - Working with multiple Java projects}]]></doctitle>
+    <doctitle><![CDATA[${doc.title}]]></doctitle>
     <bottom><![CDATA[<i>Copyright &#169; 2015 Dakside Group. All Rights Reserved.</i>]]></bottom>
     <group title="dakside Packages" packages="dakside.*"/>
     <link href="http://www.dakside.org"/>
@@ -93,6 +101,10 @@
 </target>
 
 <target name="build" depends="package,gendoc">
+</target>
+
+<target name="run" depends="package">
+        <java jar="${dist.dir}/${app.jar}" fork="true"/>
 </target>
 
 <target name="clean" description="Clean output directories">

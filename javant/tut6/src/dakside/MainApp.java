@@ -1,3 +1,4 @@
+package dakside;
 /*
  * The MIT License
  *
@@ -21,19 +22,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-import dakside.UberLibrary;
+import dakside.common.UberLibrary;
 
 /**
- * Tutorial 4: Basic project structure with Ant script
+ * A simple Java application
  *
- * @author LeTuanAnh {@literal <tuananh.ke@gmail.com>}
+ * @author Le Tuan Anh {@literal <tuananh.ke@gmail.com>}
  */
 public class MainApp {
 
-    /**
-     * The entry point of the main app
-     * @param args 
-     */
     public static void main(String[] args) {
         UberLibrary.announce("I will use stuff from 'dakside' package");
         int numA = 1;

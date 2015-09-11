@@ -1,3 +1,5 @@
+package dakside.common;
+
 /*
  * The MIT License
  *
@@ -21,24 +23,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-import dakside.UberLibrary;
 
+import org.junit.*;
+import dakside.common.UberLibrary;
 /**
- * Tutorial 4: Basic project structure with Ant script
+ * Test UberLibrary
  *
- * @author LeTuanAnh {@literal <tuananh.ke@gmail.com>}
+ * @author Le Tuan Anh {@literal <tuananh.ke@gmail.com>}
  */
-public class MainApp {
+public class UberLibraryTest {
 
-    /**
-     * The entry point of the main app
-     * @param args 
-     */
-    public static void main(String[] args) {
-        UberLibrary.announce("I will use stuff from 'dakside' package");
-        int numA = 1;
-        int numB = 2;
-        int result = UberLibrary.sum(numA, numB);
-        UberLibrary.announce(String.format("%d + %d = %d\n", numA, numB, result));
+	@Test
+    public void sumTest() {
+        Assert.assertEquals(UberLibrary.sum(1,2),3);
     }
+
 }

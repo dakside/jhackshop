@@ -26,7 +26,7 @@ package dakside;
 /**
  * A very sophisticated library
  *
- * @author Le Tuan Anh <tuananh.ke@gmail.com>
+ * @author Le Tuan Anh {@literal <tuananh.ke@gmail.com>}
  */
 public class UberLibrary {
 

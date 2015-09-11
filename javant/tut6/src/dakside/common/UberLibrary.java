@@ -1,3 +1,5 @@
+package dakside.common;
+
 /*
  * The MIT License
  *
@@ -21,24 +23,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-import dakside.UberLibrary;
-
 /**
- * Tutorial 4: Basic project structure with Ant script
+ * A very sophisticated library
  *
- * @author LeTuanAnh {@literal <tuananh.ke@gmail.com>}
+ * @author Le Tuan Anh {@literal <tuananh.ke@gmail.com>}
  */
-public class MainApp {
+public class UberLibrary {
 
-    /**
-     * The entry point of the main app
-     * @param args 
-     */
-    public static void main(String[] args) {
-        UberLibrary.announce("I will use stuff from 'dakside' package");
-        int numA = 1;
-        int numB = 2;
-        int result = UberLibrary.sum(numA, numB);
-        UberLibrary.announce(String.format("%d + %d = %d\n", numA, numB, result));
+    public static int sum(int firstNum, int secondNum) {
+        return firstNum + secondNum;
+    }
+
+    public static void announce(String message) {
+        System.out.format("People said that: %s\n", message);
     }
 }

@@ -1,13 +1,20 @@
 <?xml version="1.0"?>
-<project name="Java Application" default="build">
+<project name="AlgoDemo" default="build">
 
+<!--
+A very basic Ant script
+More information:
+https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
+-->
+    
 <!--Configuration-->
+<property name="app.name" value="dakalgo"/>
 <property name="src.dir" value="src"/>
 <property name="build.dir" value="build"/>
 <property name="dist.dir" value="dist"/>
-<property name="app.jar" value="dakalgo.jar"/>
+<property name="app.jar" value="${app.name}.jar"/>
 <!--Doc config-->
-<property name="doc.title" value="Tutorial 5 - jHackshop@Dakside"/>
+<property name="doc.title" value="Tutorial 5: Demo Algorithm Library - jHackshop@Dakside"/>
 <property name="doc.dir" value="doc/javadoc"/>
 
 
@@ -26,11 +33,10 @@
 
 <target name="package" depends="clean,compile">
         <jar destfile="${dist.dir}/${app.jar}" basedir="${build.dir}">
-            <!--<manifest>
-                <attribute name="Main-Class"
-                    value="MainApp"/>
+            <manifest>
+                <!--<attribute name="Main-Class"
+                    value="MainApp"/>-->
             </manifest>
-			-->
         </jar>
 </target>
 
@@ -42,7 +48,7 @@
              author="true"
              version="true"
              windowtitle="${doc.title}">
-    <doctitle><![CDATA[${Tutorial 5 - Working with multiple Java projects}]]></doctitle>
+    <doctitle><![CDATA[${doc.title}]]></doctitle>
     <bottom><![CDATA[<i>Copyright &#169; 2015 Dakside Group. All Rights Reserved.</i>]]></bottom>
     <group title="dakside Packages" packages="dakside.*"/>
     <link href="http://www.dakside.org"/>
@@ -50,6 +56,10 @@
 </target>
 
 <target name="build" depends="package,gendoc">
+</target>
+
+<target name="run" depends="package">
+        <java jar="${dist.dir}/${app.jar}" fork="true"/>
 </target>
 
 <target name="clean" description="Clean output directories">
