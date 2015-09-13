@@ -105,6 +105,9 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 
 <target name="run" depends="package">
         <java jar="${dist.dir}/${app.jar}" fork="true"/>
+		<!--<classpath>
+           <pathelement path="${dist.lib.dir}"/>
+         </classpath>-->
 </target>
 
 <target name="clean" description="Clean output directories">
