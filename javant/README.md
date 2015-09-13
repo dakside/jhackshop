@@ -10,4 +10,8 @@ Materials for Dakside's Java+Ant workshop to help members understand the basic c
 * Tutorial 6: Java Unit Testing with JUnit
 * [TBA]: Free-form Netbeans project and custom libraries [To be added by Chinh]
 * [TBA]: GUI with Java
-* [TBA]: Working with SQLite databases
+* [TBA]: Working with SQLite
+* [TBA]: Working with DB4O
+* [TBA]: Working with Neo4j
+* [TBA]: Working with MongoDB
+* [TBA]: Using Hibernate for database manipulation
