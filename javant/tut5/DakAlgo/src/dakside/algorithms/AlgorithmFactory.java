@@ -30,7 +30,7 @@ package dakside.algorithms;
 /**
  * The {@link AlgorithmFactory} class provides for creating algorithm objects
  *
- * @author Hoang Duc Chinh &lt;dc.hoang.vn@gmail.com&gt;
+ * @author Hoang Duc Chinh {@literal <dc.hoang.vn@gmail.com>};
  */
 public class AlgorithmFactory {
 

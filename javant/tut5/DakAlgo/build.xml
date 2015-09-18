@@ -32,12 +32,13 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 </target>
 
 <target name="package" depends="clean,compile">
-        <jar destfile="${dist.dir}/${app.jar}" basedir="${build.dir}">
+	<jar destfile="${dist.dir}/${app.jar}" basedir="${build.dir}" />
+        <!--<jar destfile="${dist.dir}/${app.jar}" basedir="${build.dir}">
             <manifest>
-                <!--<attribute name="Main-Class"
-                    value="MainApp"/>-->
+                <attribute name="Main-Class"
+                    value="MainApp"/>
             </manifest>
-        </jar>
+        </jar>-->
 </target>
 
 <target name="gendoc" description="Generate Java doc">
@@ -58,9 +59,11 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 <target name="build" depends="package,gendoc">
 </target>
 
+<!--
 <target name="run" depends="package">
         <java jar="${dist.dir}/${app.jar}" fork="true"/>
 </target>
+-->
 
 <target name="clean" description="Clean output directories">
    <delete dir="${build.dir}" />

@@ -27,6 +27,8 @@ package dakside;
 /**
  * Tutorial 5: Working with multiple projects
  *
+ * This AlgoDemo demonstrate dakalgo usage to sort a provided integer array
+ *
  * @author HoangDucChinh <dc.hoang.vn@gmail.com>
  */
 import java.util.Scanner;
@@ -38,26 +40,30 @@ public class MainApp {
 
     /**
      * The entry point of the main app
-     * @param args 
+     * @param args not using here
      */
     public static void main(String[] args) {
-		Scanner scan= new Scanner(System.in);
-		int[] inputArr = {1, 3, 123, 43, 5, 10, 21, 7, 89, 45, 93};
+		Scanner scan= new Scanner(System.in); // to get user's input from keyboard
+		int[] inputArr = {1, 3, 123, 43, 5, 10, 21, 7, 89, 45, 93}; // input unsorted array
 		
-		String text = "";		
+		String text = ""; // input text		
 		
+		/* a loop to run and select sorting algorithms */
 		while (!text.equalsIgnoreCase("exit")){
 			System.out.println("Sorting demo!");
 			System.out.println("Please select a sorting algorithm (BubbleSort or InsertionSort), type EXIT to escape");
 			text= scan.nextLine();
 			
-			if (!text.equalsIgnoreCase("exit")){
-				try{
-					SortingAlgorithm sorting = new AlgorithmFactory().createSortingAlgorithm(text);
-					int[] outputArr = new int[inputArr.length];
-					System.arraycopy(inputArr,0,outputArr,0,outputArr.length);
+			if (!text.equalsIgnoreCase("exit")){ // if not exit 
+				try{ // try to sort the array with selected algorithms
+					SortingAlgorithm sorting = new AlgorithmFactory().createSortingAlgorithm(text); // creating the sorting object
 					
-					sorting.sort(outputArr);
+					int[] outputArr = new int[inputArr.length]; // make a copy of input array ...
+					System.arraycopy(inputArr,0,outputArr,0,outputArr.length); // ... to keep the original array
+					
+					sorting.sort(outputArr); // sort the array
+					
+					/* Print the output and ask for the next step */
 					System.out.println("The unsorted array is: ");
 					for (int element:inputArr){
 						System.out.printf("%d ", element);
@@ -69,7 +75,7 @@ public class MainApp {
 					}
 					System.out.println("");
 				}
-				catch (AlgorithmNotFoundException e){
+				catch (AlgorithmNotFoundException e){ // not found the algorithm, undefined user inputs
 					System.err.println("Error found: " + e.getMessage());
 				}
 			}

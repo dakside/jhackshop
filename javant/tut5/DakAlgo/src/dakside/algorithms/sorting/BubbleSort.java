@@ -32,7 +32,8 @@ package dakside.algorithms.sorting;
 public class BubbleSort implements SortingAlgorithm {
 
     /**
-     * Sort an array of integers
+     * Sort an array of integers from smallest number to largest number
+	 * 
      * @param inputs Unsorted array
 	 * @return Sorted array
      */
@@ -41,9 +42,11 @@ public class BubbleSort implements SortingAlgorithm {
 		boolean swap = true;		
 		int temp;
 		
+		/* swap the elements until all are sorted */ 
 		while (swap){
 			swap = false;
 			for (int i=0; i < inputs.length-1; i++){
+				/* swap if previous element is larger than the next element */
 				if (inputs[i] > inputs[i+1]){
 					temp = inputs[i];
 					inputs[i] = inputs[i+1];

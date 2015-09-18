@@ -35,6 +35,8 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 	<mkdir dir="${lib.dir}"/>
     <mkdir dir="${dist.dir}"/>
 	<mkdir dir="${dist.lib.dir}" />
+	<!-- to run ant for external library project and get its jar-->
+	<ant antfile="${ext.project.dir}/build.xml" dir="${ext.project.dir}" inheritAll="false" />
 	<copy file="${ext.project.jar}" todir="${lib.dir}"/>
 </target>
 
@@ -85,6 +87,7 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 	</jar>
 </target>
 
+<!-- generate documentation -->
 <target name="gendoc" description="Generate Java doc">
     <javadoc packagenames="dakside.*"
              sourcepath="src"
@@ -104,16 +107,18 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 </target>
 
 <target name="run" depends="package">
-        <java jar="${dist.dir}/${app.jar}" fork="true"/>
+	<java jar="${dist.dir}/${app.jar}" fork="true"/>
 		<!--<classpath>
            <pathelement path="${dist.lib.dir}"/>
          </classpath>-->
 </target>
 
+<!-- clean everything -->
 <target name="clean" description="Clean output directories">
    <delete dir="${build.dir}" />
-   <delete dir="${dist.dir}" />
+   <delete dir="${dist.ant }" />
    <delete dir="${doc.dir}" />
+   <delete dir="${lib.dir}" />
 </target>
 
 </project>

@@ -32,17 +32,20 @@ package dakside.algorithms.sorting;
 public class InsertionSort implements SortingAlgorithm {
 
     /**
-     * Sort an array of integers
+     * Sort an array of integers from smallest number to largest number
      * @param inputs Unsorted array
 	 * @return Sorted array
      */
-	 ///*
 	@Override
     public int[] sort(int[] inputs){
 		int temp;		
 		int i;
 		int j;
 		
+		/* 
+		 * Shift the element to the right position in the sorted part of the array
+		 * which is in the front (left) of it
+		 */
 		for (i = 1; i < inputs.length; i++){
 			temp = inputs[i];
 			j = i;
