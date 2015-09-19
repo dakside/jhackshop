@@ -2,7 +2,7 @@
 <project name="AlgoDemo" default="build">
 
 <!--
-A very basic Ant script
+An Ant script to build java app which includes an external java project
 More information:
 https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 -->
@@ -50,32 +50,44 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 	</fileset>
 </path>
 
-<!-- include external lib here, modify classpath if required --> 
+
+<!-- Include external lib here, modify classpath if required --> 
 <target name="compile" depends="clean,prepare" description="Compile source code">
    <javac destdir="${build.dir}" classpathref="classpath" debug="false" optimize="true">
       <src path="${src.dir}"/>
    </javac>
 </target>
 
-<!-- constructs the external libraries classpath name -->
-<pathconvert property="classpath.name" pathsep=" ">
-	<path refid="classpath" />
-	<mapper>
-		<chainedmapper>
-			<flattenmapper />
-			<globmapper from="*.jar" to="lib/*.jar" />
-		</chainedmapper>
-	</mapper>
-</pathconvert>
-
-<!-- copy the external lib to distribution -->
+<!-- Copy the external lib to distribution -->
 <target name="copy-dependencies">
 	<copy todir="${dist.lib.dir}">
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</copy>
+	
+	<!-- IMPORTANT! The following "path" and "pathconvert block" must be included in
+	this target, i.e. copy-dependencies, so that the "dist.lib.dir" can be 
+	recognized and included into classpath-->
+	
+	<!-- Define classpath for java app runtime -->
+	<path id="runtime.classpath">
+		<fileset dir="${dist.dir}">
+			<include name="lib/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Construct the external libraries classpath name -->
+	<pathconvert property="classpath.name" pathsep=" ">
+		<path refid="runtime.classpath" />
+		<mapper>
+			<chainedmapper>
+				<flattenmapper />
+				<globmapper from="*.jar" to="lib/*.jar" />
+			</chainedmapper>
+		</mapper>
+	</pathconvert>
 </target>
 
-<!-- build jar with external lib included, modify classpath if required --> 	
+<!-- Build jar with external lib included into classpath --> 	
 <target name="package" depends="clean,compile,copy-dependencies">
 	<echo message="classpath.name: ${classpath.name}" />
 	
@@ -87,7 +99,7 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 	</jar>
 </target>
 
-<!-- generate documentation -->
+<!-- Generate documentation -->
 <target name="gendoc" description="Generate Java doc">
     <javadoc packagenames="dakside.*"
              sourcepath="src"
@@ -108,15 +120,12 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 
 <target name="run" depends="package">
 	<java jar="${dist.dir}/${app.jar}" fork="true"/>
-		<!--<classpath>
-           <pathelement path="${dist.lib.dir}"/>
-         </classpath>-->
 </target>
 
-<!-- clean everything -->
+<!-- Clean everything -->
 <target name="clean" description="Clean output directories">
    <delete dir="${build.dir}" />
-   <delete dir="${dist.ant }" />
+   <delete dir="${dist.dir}" />
    <delete dir="${doc.dir}" />
    <delete dir="${lib.dir}" />
 </target>
