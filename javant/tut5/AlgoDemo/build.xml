@@ -14,18 +14,29 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 <property name="build.dir" value="build"/>
 <property name="dist.dir" value="dist"/>
 <property name="dist.lib.dir" location="dist/lib" />
-<property name="lib.dir" value="lib"/>
-
 <property name="app.jar" value="${app.name}.jar"/>
 
-<property name="ext.project.dir" value="../DakAlgo"/>
-<property name="ext.project.jar" value="${ext.project.dir}/dist/dakalgo.jar"/>
-<!--<property name="classpath" value="${lib.dir}/dakalgo.jar"/>-->
-<!-- example of classpath: classpath="${extdir}/imageio.jar:${extdir}/jama.jar:${basedir}/ij.jar" -->
+<property name="ext.project.dakalgo.dir" value="../DakAlgo"/>
+<property name="ext.project.dakalgo.jar" value="${ext.project.dakalgo.dir}/dist/dakalgo.jar"/>
 
 <!--Doc config-->
 <property name="doc.title" value="Tutorial 5: Algorithm Demo Application - jHackshop@Dakside"/>
 <property name="doc.dir" value="doc/javadoc"/>
+
+<!--Classpath build-->
+<!--Define classpath for compiling-->
+<path id="build.classpath">
+	<fileset dir="${ext.project.dakalgo.dir}">
+		<include name="dist/dakalgo.jar" />
+	</fileset>
+</path>
+	
+<!--Define classpath for java app runtime -->
+<path id="runtime.classpath">
+	<fileset dir="${dist.dir}">
+		<include name="lib/*.jar" />
+	</fileset>
+</path>
 
 <!--Targets-->
 <!-- ref: https://ant.apache.org/manual/ -->
@@ -35,47 +46,29 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 	<mkdir dir="${lib.dir}"/>
     <mkdir dir="${dist.dir}"/>
 	<mkdir dir="${dist.lib.dir}" />
-	<!-- to run ant for external library project and get its jar-->
-	<ant antfile="${ext.project.dir}/build.xml" dir="${ext.project.dir}" inheritAll="false" />
-	<copy file="${ext.project.jar}" todir="${lib.dir}"/>
+	<!-- Execute ant run for external project and get the jar file-->
+	<ant antfile="${ext.project.dakalgo.dir}/build.xml" dir="${ext.project.dakalgo.dir}" inheritAll="false" />
+	<!-- <copy file="${ext.project.dakalgo.jar}" todir="${lib.dir}"/> -->
 </target>
 
-<!--Classpath-->
-<path id="classpath">
-	<!-- <fileset dir="${lib.dir}" includes="**/*.jar"/> --> <!-- method 1 -->
-	<fileset dir="${basedir}/"> <!-- method 2 -->
-		<include name="${lib.dir}/*.jar" />
-		<exclude name="${lib.dir}/*sources.jar"/>
-		<exclude name="${lib.dir}/*javadoc.jar"/>
-	</fileset>
-</path>
-
-
-<!-- Include external lib here, modify classpath if required --> 
+<!--Include external lib here, modify classpath if required--> 
 <target name="compile" depends="clean,prepare" description="Compile source code">
-   <javac destdir="${build.dir}" classpathref="classpath" debug="false" optimize="true">
+   <javac destdir="${build.dir}" classpathref="build.classpath" debug="false" optimize="true">
       <src path="${src.dir}"/>
    </javac>
 </target>
 
-<!-- Copy the external lib to distribution -->
-<target name="copy-dependencies">
+<!--Copy the external lib to distribution-->
+<target name="copy-dependencies" depends="prepare">
 	<copy todir="${dist.lib.dir}">
-		<fileset dir="${lib.dir}" includes="**/*.jar"/>
-	</copy>
-	
-	<!-- IMPORTANT! The following "path" and "pathconvert block" must be included in
-	this target, i.e. copy-dependencies, so that the "dist.lib.dir" can be 
-	recognized and included into classpath-->
-	
-	<!-- Define classpath for java app runtime -->
-	<path id="runtime.classpath">
-		<fileset dir="${dist.dir}">
-			<include name="lib/*.jar" />
-		</fileset>
-	</path>
+		<fileset dir="${ext.project.dakalgo.dir}/dist" includes="**/*.jar"/>
+	</copy>	
 
-	<!-- Construct the external libraries classpath name -->
+	<!-- IMPORTANT! "pathconvert block" must be included in
+	this target, i.e. copy-dependencies, so that the "dist.lib.dir" can be 
+	recognized and included into classpath when packaging in jar-->
+	
+	<!-- Construct the external libraries classpath name for jar -->
 	<pathconvert property="classpath.name" pathsep=" ">
 		<path refid="runtime.classpath" />
 		<mapper>
@@ -89,6 +82,7 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 
 <!-- Build jar with external lib included into classpath --> 	
 <target name="package" depends="clean,compile,copy-dependencies">
+	<!--echo message for debugging-->
 	<echo message="classpath.name: ${classpath.name}" />
 	
 	<jar destfile="${dist.dir}/${app.jar}" basedir="${build.dir}">
@@ -127,7 +121,6 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
    <delete dir="${build.dir}" />
    <delete dir="${dist.dir}" />
    <delete dir="${doc.dir}" />
-   <delete dir="${lib.dir}" />
 </target>
 
 </project>
