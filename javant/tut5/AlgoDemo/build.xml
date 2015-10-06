@@ -43,7 +43,6 @@ https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
 <target name="prepare" description="Create build dir">
     <!--Create build dir for output files-->
     <mkdir dir="${build.dir}"/>
-	<mkdir dir="${lib.dir}"/>
     <mkdir dir="${dist.dir}"/>
 	<mkdir dir="${dist.lib.dir}" />
 	<!-- Execute ant run for external project and get the jar file-->
