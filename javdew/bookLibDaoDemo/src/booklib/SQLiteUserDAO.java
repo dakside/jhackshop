@@ -18,9 +18,8 @@ package booklib;
 
 /**
  *
- * @author HoangDucChinh <dc.hoang.vn@gmail.com>
+ * @author Hoang Duc Chinh <dc.hoang.vn@gmail.com>
  */
-public interface DAOFactory {
-
-    BookDAO createBookDAO();
+public class SQLiteUserDAO {
+    
 }
