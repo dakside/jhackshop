@@ -16,7 +16,7 @@
  */
 package booklib.mockup;
 
-import booklib.Book;
+import booklib.dto.Book;
 import java.util.HashMap;
 
 /**

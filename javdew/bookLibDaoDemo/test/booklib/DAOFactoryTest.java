@@ -16,6 +16,10 @@
  */
 package booklib;
 
+import booklib.dao.DAOFactory;
+import booklib.dao.BookDAO;
+import booklib.dao.SQLiteDAOFactory;
+import booklib.dto.Book;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

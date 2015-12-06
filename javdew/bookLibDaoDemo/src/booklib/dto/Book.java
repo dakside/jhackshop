@@ -14,12 +14,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package booklib;
+package booklib.dto;
 
 /**
  *
- * @author Hoang Duc Chinh <dc.hoang.vn@gmail.com>
+ * @author HoangDucChinh <dc.hoang.vn@gmail.com>
  */
-public class SQLiteUserDAO {
-    
+public class Book {
+
+    private String title;
+
+    public Book() {
+    }
+
+    public Book(String title) {
+        this.title = title;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

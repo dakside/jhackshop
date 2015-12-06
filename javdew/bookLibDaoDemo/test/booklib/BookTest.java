@@ -16,6 +16,7 @@
  */
 package booklib;
 
+import booklib.dto.Book;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

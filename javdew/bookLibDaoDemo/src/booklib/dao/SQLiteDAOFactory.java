@@ -14,41 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package booklib;
+package booklib.dao;
 
 /**
  *
  * @author HoangDucChinh <dc.hoang.vn@gmail.com>
  */
-public class User {
-    private String username;
-    private String password;
-
-    /**
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
+public class SQLiteDAOFactory implements DAOFactory {
+    
+    @Override
+    public BookDAO createBookDAO() {
+        return new SQLiteBookDAO();
     }
 
-    /**
-     * @param username the username to set
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
