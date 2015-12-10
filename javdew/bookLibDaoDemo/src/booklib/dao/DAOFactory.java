@@ -23,4 +23,5 @@ package booklib.dao;
 public interface DAOFactory {
 
     BookDAO createBookDAO();
+    //UserDAO createUserDAO();
 }

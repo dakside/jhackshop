@@ -17,12 +17,42 @@
 package booklib.dao;
 
 import booklib.dto.Book;
+import java.util.List;
 
 /**
  *
  * @author HoangDucChinh <dc.hoang.vn@gmail.com>
  */
 public interface BookDAO {
+    
+    /**
+     * Get all the book
+     * @return all the books
+     */
+    List<Book> getAll();
 
-    Book searchBookByTitle(String title);
+    /**
+     *
+     * @param title title of the book to be search
+     * @return a list of books found
+     */
+    List<Book> searchBookByTitle(String title);
+    
+    /**
+     * 
+     * @param newBook book to be inserted
+     */
+    void insertBook(Book newBook);
+    
+    /**
+     * 
+     * @param book book to be deleted
+     */
+    void deleteBook(Book book);
+    
+    /**
+     * 
+     * @return total number of books in the database
+     */
+    int getNumberOfBook();
 }

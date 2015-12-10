@@ -14,50 +14,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package booklib.dto;
+package booklib.dao.utils;
 
 /**
- * Book is data transport object consisting of essential information about the book
- * 
- * @author HoangDucChinh <dc.hoang.vn@gmail.com>
+ *
+ * @author Hoang Duc Chinh <dc.hoang.vn@gmail.com>
  */
-public class Book {
+public class SQLiteSchema {
+    private static SQLiteSchema instance = new SQLiteSchema();
+    public static String bookTableName;
+    private static final String BOOK_TABLE = "Books";
+    //private String userTable;
 
-    public int id;
-    private String title;
-
-    public Book() {
-    }
-
-    public Book(String title) {
-        this.title = title;
+    /**
+     * @return the bookTableName
+     */
+    public static String getBookTableName() {
+        return bookTableName;
     }
 
     /**
-     * @return the title
+     * @param aBookTableName the bookTableName to set
      */
-    public String getTitle() {
-        return title;
+    public static void setBookTableName(String aBookTableName) {
+        bookTableName = aBookTableName;
     }
-
-    /**
-     * @param title the title to set
-     */
-    public void setTitle(String title) {
-        this.title = title;
+    
+    private SQLiteSchema(){
+        this.bookTableName = this.BOOK_TABLE;
     }
-
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+    
+    public static SQLiteSchema getSchema() {
+        return instance;
+    }   
+    
 }

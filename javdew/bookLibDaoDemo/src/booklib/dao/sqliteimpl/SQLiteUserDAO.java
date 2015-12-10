@@ -14,17 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package booklib.dao;
+package booklib.dao.sqliteimpl;
 
 /**
  *
- * @author HoangDucChinh <dc.hoang.vn@gmail.com>
+ * @author Hoang Duc Chinh <dc.hoang.vn@gmail.com>
  */
-public class SQLiteDAOFactory implements DAOFactory {
+public class SQLiteUserDAO {
     
-    @Override
-    public BookDAO createBookDAO() {
-        return new SQLiteBookDAO();
-    }
-
 }

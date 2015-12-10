@@ -31,13 +31,14 @@ public class DummySQLite {
         if (title == null || title.trim().isEmpty()) {
             throw new RuntimeException("Invalid book information");
         } else {
-            return BOOK_LIST.get(title);
+            return BOOK_LIST.get(title);            
         }
     }
 
     private static HashMap<String, Book> buildBookList() {
         HashMap<String, Book> books = new HashMap<>();
         books.put("Lord of the rings", new Book("Lord of the rings"));
+        books.put("Harry Potter", new Book("Harry Potter"));
         books.put("Harry Potter", new Book("Harry Potter"));
         return books;
     }

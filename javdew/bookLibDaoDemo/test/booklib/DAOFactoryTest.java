@@ -18,8 +18,9 @@ package booklib;
 
 import booklib.dao.DAOFactory;
 import booklib.dao.BookDAO;
-import booklib.dao.SQLiteDAOFactory;
+import booklib.dao.sqliteimpl.SQLiteDAOFactory;
 import booklib.dto.Book;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -68,8 +69,9 @@ public class DAOFactoryTest {
         System.out.println("createBookDAO");
         DAOFactory instance = new SQLiteDAOFactory();
         BookDAO bookDAO = instance.createBookDAO();
-        Book b = bookDAO.searchBookByTitle("Harry Potter");
-        assertEquals("Harry Potter", b.getTitle());
+        List<Book> b = bookDAO.searchBookByTitle("Harry Potter");
+        if (b.size()>0)
+            assertEquals("Harry Potter", b.get(1).getTitle());
     }
 
     @Test
@@ -77,7 +79,7 @@ public class DAOFactoryTest {
         System.out.println("createBookDAO");
         DAOFactory instance = new SQLiteDAOFactory();
         BookDAO bookDAO = instance.createBookDAO();
-        Book b = bookDAO.searchBookByTitle(null);
+        List<Book> b = bookDAO.searchBookByTitle(null);
         assertNull(b);
         
         b = bookDAO.searchBookByTitle(" ");
