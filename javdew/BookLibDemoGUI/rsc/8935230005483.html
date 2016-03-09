@@ -1,0 +1,700 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+    <title>Minh Khai Book Store - THỦY HỬ (TRỌN BỘ 2 TẬP - BÌA CỨNG)</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+
+
+
+    <script type="text/javascript" src="slideShow.js"></script>
+
+<script type="text/javascript">
+var tip;
+function ToolTip(id){ 
+  var div=document.getElementById(id);             
+  this.Show =  function(e,strHTML){
+    div.innerHTML=strHTML;div.style.display='block';
+    div.style.top=(e.pageY+2) + "px";div.style.left=(e.pageX+2)+ "px"; div.focus();    
+  }  
+  this.Hide= function(e){div.style.display='none';}
+}
+
+
+function getPos(offsettype,what){
+    var totaloffset=(offsettype=="X")? what.offsetLeft : what.offsetTop;
+		var parentEl=what.offsetParent;
+			while (parentEl!=null){
+				totaloffset=(offsettype=="X")? totaloffset+parentEl.offsetLeft : totaloffset+parentEl.offsetTop;
+				parentEl=parentEl.offsetParent;
+			}
+		return totaloffset;
+}
+
+
+function initHilight(){
+	var tip = new ToolTip("tooltip");
+	$(".imageFrame").hover(
+			function(e){this.parentNode.className='bookHighlight';tip.Show(e,'<img src="'+this.src+ '" />')},
+            function(e){this.parentNode.className='bookFrame';tip.Hide(e);});
+	
+	$(".frameSmall").hover(function(e){tip.Show(e,'<img src="'+this.src+ '" />')},function(e){tip.Hide(e);});
+	$(".frameLarge").hover(function(e){tip.Show(e,'<img src="'+this.src+ '" />')},function(e){tip.Hide(e);});
+	$(".frameMiddle").hover(function(e){tip.Show(e,'<img src="'+this.src+ '" />')},function(e){tip.Hide(e);});
+	$(".frameTiny").hover(function(e){tip.Show(e,'<img src="'+this.src+ '" />')},function(e){tip.Hide(e);});
+
+}
+
+var hintText;
+function hintBox(){
+	var o=$('input.hintTextbox');
+	hintText = o[0].value;		
+	
+	o.focus(function(){
+                if (this.value=="Từ khóa ...") this.value="";
+		if (this.value==hintText) {
+				//this.value = "";
+				this.className ="hintTextboxActive";}
+               });	
+
+
+
+	o.blur(function(){if (this.value.length==0) {this.value = hintText;this.className = "hintTextbox";}});	
+}
+function createPopMenu(popId,headerID, topPos){
+        return;
+	var popup=$(popId);
+              popup[0].style.visibility='hidden'
+	popup.mouseout(function(event){this.style.visibility='hidden'});
+	popup.mouseover(function(event){this.style.visibility='visible'});		
+	$(headerID).mouseover(function(event){
+								   var y=getPos('Y',this)+15;								   
+								   if (popup[0].style.top=='2000px') popup[0].style.top=y+'px';
+								    popup[0].style.visibility='visible';
+    });			
+
+}
+
+function doSearch(){
+	var s=$('#SearchText')[0];
+	s.value=$('#s')[0].value;
+    $('#ShopID')[0].value=$('#optionSearch')[0].value;
+    $('#CategoryID')[0].value='';
+
+    var f=$('#dataForm')[0]
+	f.submit();
+	
+}
+function checkEnter(e){ 
+	if(e.keyCode == 13){ doSearch();return false}
+    return true
+}
+
+$(document).ready(function() {
+	 hintBox();
+	 createPopMenu('#shopMenu','#shopHeader','190px');    
+	 initHilight();
+     	 if ($('#slideshow').length>0){ //Home
+ 	      slideSwitch();				
+	 }
+
+         //getNews();
+     
+
+
+
+
+});
+
+function showEvent(s){
+    var x1=$('#listEventBook')[0];
+	var x2=$('#listEventGif')[0]
+		
+	if (s=='book'){
+		x1.style.visibility='visible';$("#eventBook")[0].innerHTML="<b>[Sách]</b>"
+		x2.style.visibility='hidden';$("#eventGif")[0].innerHTML="Quà tặng"			
+	} else{
+		x1.style.visibility='hidden';$("#eventBook")[0].innerHTML="Sách"
+		x2.style.visibility='visible';$("#eventGif")[0].innerHTML="<b>[Quà tặng]</b>"				
+	}
+}
+
+
+function getNews(){
+ $.ajax({url:"http://minhkhai.vn/tin/getnews.php",cache: false,success: function(html){
+     	 
+             $("#newsposts").html(html);
+	 }
+    });
+
+
+}
+
+</script>
+
+<style>
+.topnav {
+list-style-type:none;
+margin:0;
+padding:0;
+ font-weight:bold;
+ font-size:16px;
+} 
+.topnav li {
+padding-right: 30px;
+text-align:center; display:inline-block;"
+}
+
+hr{
+	margin-top:3px;
+}
+h3 {
+	margin-top:3px;
+}
+</style>
+
+
+
+</head>
+<body style=" min-width:1024px;max-width:1024px;">
+
+<div style="width:1024px; overflow:hidden; padding-bottom:15px;">
+<div style="float:left; width:200px">
+  <p><a href="http://minhkhai.vn"><img src="images/minhkhai-logo.png" width="200" height="50"/></a>
+
+</div>
+
+<div style="width:100%;float:left; max-width:800px;min-width:800px;text-align: right;">
+    <ul class="topnav"> 
+     <li><img src="images/icon1.png" border="0" style="width:18px;height:18px" /><span class="linkitem"><a style="font-size:16px" href="index.aspx?q=helpshipment" > Giao hàng <br> 24 giờ </span> </a></li>
+     <li><img src="images/icon2.png" border="0"  style="width:18px;height:18px"/><span class="linkitem"><a style="font-size:16px" href="index.aspx?q=helpamazon" > Đặt hàng <br>Amazon</a></span></li>
+     
+
+     <li><img src="images/icon3.png" border="0"  style="width:18px;height:18px"/> <span class="linkitem"><a style="font-size:16px" href="index.aspx?q=profile" > Đăng nhập
+                <br><span style="font-size:14px;font-weight:normal;"> Tài khoản & Đơn hàng</span></a> 
+          </span></li> 
+
+     <li><img src="images/icon4.png" border="0"  style="width:18px;height:18px"/> <span class="linkitem"><a style="font-size:16px" href="index.aspx?q=cart">Giỏ hàng </a><br> 
+     
+     <span style="font-size:14px;font-weight:normal;">Đang có (<span id="cartCount">0</span>) sản phẩm <br /><span style="font-size:11px">ĐT: (08) 3925 0590 - Hotline: 0903 10 14 79</span> </span></li>
+   </ul> <br> 
+    <!--img id="banner" src="banners/banner.gif" width="100%" height="80"/-->
+</div>
+
+</div>
+<div id="header">
+     <ul id="menu" class="menu">
+     
+  
+    
+          <li class="tabNormal"><a href="index.aspx">Trang chủ</a></li>
+          <li class="tabNormal"><a href="index.aspx?q=about">Giới thiệu</a></li>   
+          <li class="tabNormal"><a href="index.aspx?q=shops">Gian hàng</a></li>   
+          <li class="tabNormal"><a href="index.aspx?q=mk&bookKind=0">Sách độc quyền</a></li>   
+          <li class="tabNormal"><a href="index.aspx?q=help">Hướng dẫn mua hàng</a></li>
+          <li class="tabNormal"><a href="index.aspx?q=download">Download</a></li>
+          <li class="tabNormal"><a href="index.aspx?q=contact">Liên hệ</a></li>
+
+       
+          <li class="tabNormal"><a href="index.aspx?q=ds&discount=all"><b><span style="color:#ffd261">Giảm giá đặc biệt</span></b></a></li>
+          <li class="tabNormal"><a href="index.aspx?q=recruit">Tuyển dụng</a></li>
+
+
+    </ul>
+
+
+</div>
+<div style="width:100%; overflow:hidden; text-align:center;padding-top:2px; padding-bottom:2px">
+ <span id="msg" style=" background-color:#900; color:#FFF; font-weight:bold; "> </span> </div>
+
+
+
+
+<!-- submenu 2 -->
+
+
+<!-- Left Column -->
+
+
+<div style="float:left;padding-top:10px;width:20%; min-width:210px">
+   <div id="shopHeader" style="padding-bottom:5px;cursor:pointer; width:300px">
+   			<img src="images/arrow.png" style="float:left" /><h3>Sách</h3>
+   </div>
+
+   <div class="categoryMenu" style="float:left;width:96%; height:auto ;background-color:#ffffff">
+
+
+ 
+
+	<a href="index.aspx?CategoryID=1&ShopID=1"> Âm nhạc</a>
+
+	<a href="index.aspx?CategoryID=109&ShopID=1"> Bài học thành công - Khởi nghiệp - Làm giàu</a>
+
+	<a href="index.aspx?CategoryID=5&ShopID=1"> Cao đẳng - Đại học</a>
+
+	<a href="index.aspx?CategoryID=30&ShopID=1"> Danh nhân - Tác giả - Hồi ký - Tiểu sử</a>
+
+	<a href="index.aspx?CategoryID=34&ShopID=1"> Đầu tư - Chứng khoán</a>
+
+	<a href="index.aspx?CategoryID=67&ShopID=1"> Gia đình - Phụ nữ - Cẩm nang nuôi dạy trẻ</a>
+
+	<a href="index.aspx?CategoryID=87&ShopID=1"> Giải trí</a>
+
+	<a href="index.aspx?CategoryID=147&ShopID=1"> Kế toán - Kiểm toán</a>
+
+	<a href="index.aspx?CategoryID=6&ShopID=1"> Khoa học kỹ thuật</a>
+
+	<a href="index.aspx?CategoryID=88&ShopID=1"> Khoa học thần bí</a>
+
+	<a href="index.aspx?CategoryID=7&ShopID=1"> Khoa học thường thức</a>
+
+	<a href="index.aspx?CategoryID=107&ShopID=1"> Khoa học tự nhiên</a>
+
+	<a href="index.aspx?CategoryID=8&ShopID=1"> Khoa học xã hội</a>
+
+	<a href="index.aspx?CategoryID=29&ShopID=1"> Kinh tế học</a>
+
+	<a href="index.aspx?CategoryID=89&ShopID=1"> Kỹ năng - Nghệ thuật sống</a>
+
+	<a href="index.aspx?CategoryID=41&ShopID=1"> Làm đẹp</a>
+
+	<a href="index.aspx?CategoryID=84&ShopID=1"> Lịch sử - Địa lý</a>
+
+	<a href="index.aspx?CategoryID=82&ShopID=1"> Luyện thi Cao đẳng - Đại học</a>
+
+	<a href="index.aspx?CategoryID=11&ShopID=1"> Mỹ thuật, Điện ảnh, Kiến trúc</a>
+
+	<a href="index.aspx?CategoryID=101&ShopID=1"> Nghệ thuật lãnh đạo - Nhân sự</a>
+
+	<a href="index.aspx?CategoryID=148&ShopID=1"> Ngoại giao - Vấn đề quốc tế</a>
+
+	<a href="index.aspx?CategoryID=12&ShopID=1"> Ngoại ngữ</a>
+
+	<a href="index.aspx?CategoryID=81&ShopID=1"> Ngoại văn</a>
+
+	<a href="index.aspx?CategoryID=2&ShopID=1"> Nông - Lâm nghiệp</a>
+
+	<a href="index.aspx?CategoryID=13&ShopID=1"> Nữ công</a>
+
+	<a href="index.aspx?CategoryID=45&ShopID=1"> Pháp luật</a>
+
+	<a href="index.aspx?CategoryID=143&ShopID=1">   . Phóng sự/Ký sự </a>
+
+	<a href="index.aspx?CategoryID=32&ShopID=1"> Phong thủy - Kinh dịch - Nhân tướng học</a>
+
+	<a href="index.aspx?CategoryID=146&ShopID=1"> PR - Marketing - Sales</a>
+
+	<a href="index.aspx?CategoryID=36&ShopID=1"> Quản trị - Bí quyết kinh doanh</a>
+
+	<a href="index.aspx?CategoryID=108&ShopID=1"> Sách cho tuổi mới lớn</a>
+
+	<a href="index.aspx?CategoryID=129&ShopID=1"> SÁCH GIÁO KHOA BỘ</a>
+
+	<a href="index.aspx?CategoryID=76&ShopID=1"> Sách giáo khoa cấp I</a>
+
+	<a href="index.aspx?CategoryID=94&ShopID=1"> Sách giáo khoa cấp II</a>
+
+	<a href="index.aspx?CategoryID=95&ShopID=1"> Sách giáo khoa cấp III</a>
+
+	<a href="index.aspx?CategoryID=131&ShopID=1"> SÁCH SẮP PHÁT HÀNH</a>
+
+	<a href="index.aspx?CategoryID=152&ShopID=1"> Sách song ngữ</a>
+
+	<a href="index.aspx?CategoryID=153&ShopID=1"> Sách tô màu</a>
+
+	<a href="index.aspx?CategoryID=97&ShopID=1"> Tác phẩm kinh điển </a>
+
+	<a href="index.aspx?CategoryID=33&ShopID=1"> Tài chính - Ngân hàng </a>
+
+	<a href="index.aspx?CategoryID=19&ShopID=1"> Tâm lý - Giới tính</a>
+
+	<a href="index.aspx?CategoryID=151&ShopID=1"> Tham khảo</a>
+
+	<a href="index.aspx?CategoryID=16&ShopID=1"> Tham khảo cấp I</a>
+
+	<a href="index.aspx?CategoryID=17&ShopID=1"> Tham khảo cấp II</a>
+
+	<a href="index.aspx?CategoryID=18&ShopID=1"> Tham khảo cấp III</a>
+
+	<a href="index.aspx?CategoryID=20&ShopID=1"> Thể dục - Thể thao</a>
+
+	<a href="index.aspx?CategoryID=21&ShopID=1"> Thiếu nhi</a>
+
+	<a href="index.aspx?CategoryID=22&ShopID=1"> Thơ - Bình thơ - Phê bình văn học</a>
+
+	<a href="index.aspx?CategoryID=98&ShopID=1"> Tiểu thuyết tình cảm - lãng mạn</a>
+
+	<a href="index.aspx?CategoryID=23&ShopID=1"> Tin học - CNTT</a>
+
+	<a href="index.aspx?CategoryID=77&ShopID=1"> Tôn giáo</a>
+
+	<a href="index.aspx?CategoryID=90&ShopID=1"> Triết - Chính trị - Quân sự</a>
+
+	<a href="index.aspx?CategoryID=104&ShopID=1"> Truyện dài - Tiểu thuyết</a>
+
+	<a href="index.aspx?CategoryID=105&ShopID=1"> Truyện Huyền bí - Giả tưởng</a>
+
+	<a href="index.aspx?CategoryID=106&ShopID=1"> Truyện Kiếm hiệp</a>
+
+	<a href="index.aspx?CategoryID=99&ShopID=1"> Truyện kinh dị </a>
+
+	<a href="index.aspx?CategoryID=102&ShopID=1"> Truyện ngắn - Tản văn</a>
+
+	<a href="index.aspx?CategoryID=96&ShopID=1"> Truyện tranh</a>
+
+	<a href="index.aspx?CategoryID=100&ShopID=1"> Truyện trinh thám</a>
+
+	<a href="index.aspx?CategoryID=24&ShopID=1"> Từ điển</a>
+
+	<a href="index.aspx?CategoryID=4&ShopID=1"> Văn hóa - Du lịch</a>
+
+	<a href="index.aspx?CategoryID=25&ShopID=1"> Văn học</a>
+
+	<a href="index.aspx?CategoryID=150&ShopID=1"> Xây dựng</a>
+
+	<a href="index.aspx?CategoryID=26&ShopID=1"> Y học - Sức khỏe</a>
+
+
+	</div>
+  
+    
+   	<p>&nbsp;</p>
+<!-- News -->
+
+
+
+<div style="float:left;width:98%;padding-top:30px;background-color:#ffffff; padding-left:6px; padding-bottom:6px; padding-right:4px">
+
+
+
+ 
+ <h3><span style="background-color:#6d2524;color:#FFF;padding:5px 5px">BẢN TIN MINH KHAI</span></h3>
+      
+<span class="linkitem"> <p><a title="Trẻ em, Phật tử nhặt r&aacute;c tại danh thắng T&acirc;y Thi&ecirc;n" href="http://vnexpress.net/tin-tuc/khoa-hoc/moi-truong/tre-em-phat-tu-nhat-rac-tai-danh-thang-tay-thien-3228272.html"><strong>Trẻ em, Phật tử nhặt r&aacute;c tại danh thắng T&acirc;y Thi&ecirc;n</strong></a><br /><br />&nbsp;<br />H&agrave;ng trăm t&igrave;nh nguyện vi&ecirc;n, chư ni, Phật tử v&agrave; trẻ em cuối tuần qua tham gia nhặt r&aacute;c tại khu danh thắng T&acirc;y Thi&ecirc;n, Vĩnh Ph&uacute;c, hưởng ứng Ng&agrave;y M&ocirc;i trường Thế giới.</p>  </span>
+
+	<hr style="width:98%;border-bottom: #999 1px solid; border-top:none; height:1px"/>
+ 
+ 
+ 
+<span id="newsposts"></span>
+<p>
+
+
+ <h3><span style="background-color:#6d2524;color:#FFF;padding:5px 5px">WEBSITE LIÊN KẾT</span></h3>
+
+   <a href="http://www.webtretho.com" target="_blank"><img src="images/webtretho.gif" width="100%"/></a><br> 
+       <hr style="width:98%;border-bottom: #999 1px solid; border-top:none; height:1px"/>
+     
+     <a href="https://www.facebook.com/fanpage.minhkhaibookstore" target="_blank"><img src="images/facebook-logo.jpg" width="100%"/></a><br> 
+       <hr style="width:98%;border-bottom: #999 1px solid; border-top:none; height:1px"/>
+    
+    <a href="http://www.ems.com.vn" target="_blank"><img src="images/logo-gui-nhanh.jpg" width="100%"/></a><br> 
+     <hr style="width:98%;border-bottom: #999 1px solid; border-top:none; height:1px"/>
+     <a href="http://www.vnpost.vn" target="_blank"><img src="images/logo-gui-thuong.jpg" width="100%"/></a><br> 
+     <hr style="width:98%;border-bottom: #999 1px solid; border-top:none; height:1px"/>
+      
+      
+ </div>
+
+   	<p>&nbsp;</p>
+
+</div>
+
+<!--Center Column -->
+<div style="float:left;padding-top:5px; width:75%;height:auto; min-width:530px">
+   <!-- Search Box -->
+   <div>
+     <div style="float:left;padding-top:5px;padding-right:6px;padding-left:70px;"><h3 style="margin-top:2px">TÌM KIẾM </h3></div>
+       <div id="search_box" style="float:left"><input id="s" class='hintTextbox'  type="text"  value="Từ khóa ..." maxlength="100" onKeyPress="return checkEnter(event)"><input src="images/btn_search_box.png" id="go" alt="Search" title="Tìm kiếm sách/quà tặng- Bạn gõ font Unicode hoặc tiếng Việt không dấu" width="27" height="24" type="image" onclick="doSearch()"></div>
+  <div style="float:left; padding-top:2px; padding-left:6px">
+          <select id="optionSearch" style="width:240px; height:24px; font-weight:bold; color:#333">
+
+                 <option value="-3" > Tên/Tựa </option>
+
+                 <option value="-2" > Nhà Xuất Bản </option>
+
+                 <option value="-1" > ISBN </option>
+
+                 <option value="0" > Tác giả </option>
+
+                 <option value="1" selected> Sách </option>
+
+                 <option value="2" > Băng đĩa </option>
+
+                 <option value="3" > Văn phòng phẩm </option>
+
+                 <option value="6" > Hàng lưu niệm </option>
+
+                 <option value="14" > Kim khí điện máy </option>
+
+                 <option value="15" > Đồ chơi </option>
+
+                 <option value="18" > Hàng Thái Lan </option>
+
+                 <option value="19" > Lồng đèn Trung Thu </option>
+
+                 <option value="20" > Lịch </option>
+
+                 <option value="21" > Noel - Tết </option>
+
+		  </select>
+    </div>
+
+   </div>
+
+<div style="padding-top:10px; padding-left:10px; clear:both; height:auto"> 
+</div>
+
+
+
+  
+  <div style="padding-top:10px; padding-left:10px; clear:both; height:auto"> 
+	<div style="cursor:pointer;width:auto;border-bottom:#d6d6d6 1px dotted;" >	
+	        <h3>Sách > <span class=linkitem><a href="index.aspx?CategoryID=97&ShopID=1"> Tác phẩm kinh điển  </span></a></h3>
+	</div>
+
+
+    <table style="padding-top:10px; padding-bottom:5px"> 
+<tr><td valign="top" width="170" style="padding-top:10px;padding-right:8px">
+
+
+<img src="http://minhkhai.vn/hinhlon/8935230005483.jpg" width="160" height="200" />
+
+
+
+<img src="images/new.png" style="position:relative; left:0px; top:-32px"/>
+
+
+
+
+
+
+</td><td valign="top" width="80%" style="padding-top:10px;padding-right:8px"><span style="color:black"><B>THỦY HỬ (TRỌN BỘ 2 TẬP - BÌA CỨNG)</B>
+  
+<br />
+Tác giả: <a href='index.aspx?ss&ShopID=0&searchText=Thi+N%e1%ba%a1i+Am'>Thi Nại Am</a>. Gịch giả: <a href='index.aspx?ss&ShopID=0&searchText=%c3%81+Nam+Tr%e1%ba%a7n+Tu%e1%ba%a5n+Kh%e1%ba%a3i'>Á Nam Trần Tuấn Khải</a> </span> <br />
+Thể loại: <a href='index.aspx?CategoryID=97&ShopID=1'>Tác phẩm kinh điển </a><br />
+<b>ISBN: 8935230005483</b><br />
+
+<b>Xuất bản: </b>6/2015 <br />
+
+
+<b>Trọng lượng: </b>1930 gr<br />
+<b>NXB: </b> <a href='index.aspx?ss&ShopID=-2&searchText=V%c4%83n+h%e1%bb%8dc'>Văn học</a><br />
+<b>Số trang: </b>1204 trang - Khổ: 16 x 24 cm<br />
+
+
+<b>Giá bìa</b>: <STRIKE> <span style="font-weight:bold">278,000 đ</span></STRIKE><b> (-20%)</b><br />
+
+
+<b>Giá bán: </b><span style="color:#6d2524; font-size:medium; font-weight:bold">222,400 đ</span><br /><br />
+
+
+
+
+
+<a href="index.aspx?q=cart&act=take&isbn=8935230005483"><img src="images/buynow.jpg" style="cursor:pointer"/> </a> 
+
+
+     <img src="images/p20.png" />
+
+
+
+
+</td>
+</tr>
+
+
+
+
+<tr>
+<td colspan="2">
+<p class="MsoNormal" style="margin-bottom: 0.0001pt; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family: Arial, sans-serif; font-size: 12pt; color: #000000;">Giới thiệu t&aacute;c phẩm kinh điển n&agrave;y, PGS.TS. Trần L&ecirc; Bảo đ&atilde; viết: <em>&ldquo;<strong>Thủy&nbsp; Hử</strong> &ldquo;sinh ra&rdquo; từ thế kỷ 14 v&agrave; sống đến tận b&acirc;y giờ, chứng tỏ phải c&oacute; c&aacute;i g&igrave; đ&oacute; trong nội dung tư tưởng v&agrave; h&igrave;nh tượng nh&acirc;n vật l&agrave;m người ta tr&acirc;n trọng. Đ&acirc;y l&agrave; một t&aacute;c phẩm anh h&ugrave;ng truyền k&igrave;, viết về những nh&acirc;n vật anh h&ugrave;ng đ&atilde; được k&igrave; ảo h&oacute;a. Họ c&oacute; phẩm chất của người anh h&ugrave;ng d&acirc;n gian, c&oacute; bản lĩnh v&agrave; sức mạnh thần k&igrave; như Lỗ Tr&iacute; Th&acirc;m, V&otilde; T&ograve;ng... Họ coi thường c&ocirc;ng danh ph&uacute; qu&yacute;, th&iacute;ch tự do, trọng nghĩa khinh t&agrave;i &ldquo;lộ thượng bất b&igrave;nh, bạt đao tương trợ&rdquo; (giữa đường gặp chuyện bất b&igrave;nh, r&uacute;t đao tương trợ). Họ l&agrave; những anh h&ugrave;ng rất gần gũi với nh&acirc;n d&acirc;n. V&igrave; vậy, người anh h&ugrave;ng trong Thủy Hử vẫn được nh&acirc;n d&acirc;n ch&uacute; trọng, ước mơ, v&agrave; họ sống c&ugrave;ng t&aacute;c phẩm cho đến tận b&acirc;y giờ&rdquo;</em>.</span></p>
+<p class="MsoNormal" style="margin-bottom: 0.0001pt; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family: Arial, sans-serif; font-size: 12pt; color: #000000;">&nbsp;</span></p>
+<p><span style="font-size: 12pt; color: #000000;"> <strong><span style="line-height: 115%; font-family: Arial, sans-serif;">Xin tr&acirc;n trọng giới thiệu đến qu&yacute; độc giả cả nước.</span></strong></span></p>
+</td>
+</tr>
+    </table>
+
+    
+
+</div>
+
+
+
+  </div>
+</div>
+
+<!--Right Column -->
+
+
+<!--Footer -->
+
+<div style="padding-top:10px; padding-left:10px; clear:both; height:auto"></div> 
+
+<div style="width:100%; overflow:hidden; padding-bottom:15px">
+
+<br/>
+
+<center>
+<br />
+<img src="images/paymentall.png"> <br /><br />
+
+<b>Copyright @1999-2009 MINHKHAI.VN All rights Reserved.</b> <br>
+			Công Ty TNHH Minh Khai S.G (Nhà sách Minh Khai) <br>249 Nguyễn Thị Minh Khai, F. Nguyễn Cư Trinh, Q.1, Tp. Hồ Chí Minh<br>
+			Giấy chứng nhận đăng ký kinh doanh số: 4102019159<br>
+Mã số doanh nghiệp 0303209716 - Đăng ký thay đổi lần 6 ngày 30/07/2010<br>
+                     Ðiện Thoại (08)39250590 - (08)39250591 -Fax: (08)39257837<br />
+
+
+Website: <a href="http://www.minhkhai.vn">www.minhkhai.vn</a> và <a href="http://www.minhkhai.com.vn">www.minhkhai.com.vn</a><br>
+                        E-mail:<b>mk.book@minhkhai.vn</b> hoặc <b>mk.book@minhkhai.com.vn</b> <br></center>    
+</div>
+
+<!-- Popup/Tool tip -->
+
+<div id="tooltip" style=" z-index:1000;position:absolute; width:100px; height:100px;left:-200px; top:-200px"></div>
+
+<div id="shopMenu" class="popMenu" style="position:absolute; top:2000px;left:120px; z-index:999; visibility:hidden" >
+
+     <a href="index.aspx?shopID=1">Sách</a>
+
+     <a href="index.aspx?shopID=2">Băng đĩa</a>
+
+     <a href="index.aspx?shopID=3">Văn phòng phẩm</a>
+
+     <a href="index.aspx?shopID=15">Đồ chơi</a>
+
+     <a href="index.aspx?shopID=6">Hàng lưu niệm</a>
+
+     <a href="index.aspx?shopID=18">Hàng Thái Lan</a>
+
+     <a href="index.aspx?shopID=19">Lồng đèn Trung Thu</a>
+
+     <a href="index.aspx?shopID=14">Kim khí điện máy</a>
+
+     <a href="index.aspx?shopID=20">Lịch</a>
+
+     <a href="index.aspx?shopID=21">Noel - Tết</a>
+
+
+</div>
+
+
+<form id="dataForm" action="index.aspx?ss"  method="post">
+   <input type="hidden" name="EventID" id="EventID"value="" />
+   <input type="hidden" name="CategoryID" id="CategoryID" value="" />
+   <input type="hidden" name="ShopID" id="ShopID" value="" />
+   <input type="hidden" name="PageIndex" id="PageIndex" value="" />
+   <input type="hidden" name="SearchText" id="SearchText" value="" />
+</form>
+
+
+
+<style>
+#search_liveresult{
+    width: 350px;
+    height:200px;
+    border: 1px solid black; 
+    border-top-width: 8px; 
+    border-bottom-width: 0;
+    line-height:18px;
+     z-index:100;
+    background-color: white;
+}
+
+#search_liveresult a{
+        width: auto;
+        display: block;
+        text-indent: 5px;
+	border-top: 0 solid #678b3f;
+	border-bottom: 1px solid #678b3f; 
+	padding: 2px 0;
+ 	text-decoration: none;
+	color: black;
+}
+
+#search_liveresult  a:hover{ 
+	background-color: #6d2524;
+	color: white;
+}
+</style>
+
+<div id="search_liveresult" style="position:absolute; top:208px;left:412px;overflow-y: auto; z-index:999; visibility:hidden" >
+    <div id="livecontent">
+    </div> 
+</div>
+
+
+<script type="text/javascript">
+
+//Update cart count on home page
+$("#cartCount").html('0');
+
+
+var delay = (function() {
+  var timer = 0;
+  return function(callback, ms){
+    clearTimeout (timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
+
+$("#s").keyup(
+    function () {
+        delay(function () {
+            var keyword = $("#s").val();
+            //if (keyword=='XXX'){
+                var popsearch=$("#search_liveresult");
+                popsearch.css("visibility", "visible") 
+                popsearch.mouseout(function(){
+                     popsearch.css("visibility", "hidden");
+                });
+                popsearch.mouseover(function(){
+                     popsearch.css("visibility", "visible");
+                });
+
+
+               
+	
+           // }
+           
+            
+            var URL = encodeURI("qSearch.aspx?q=" + keyword);
+            $.ajax({
+                url: URL,
+                cache: false,
+                type: "GET",
+                success: function(response) {
+                    $("#livecontent").html(response);
+                }
+            });
+        }, 300);
+    }
+);
+</script>
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65367988-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

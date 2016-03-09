@@ -1,1 +1,1 @@
-java -jar BookLibDemoGUI.jar
+start javaw -jar BookLibDemoGUI.jar

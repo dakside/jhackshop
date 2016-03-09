@@ -68,6 +68,24 @@ public class SQLiteBookDAOTest {
     }
 
     /**
+     * Test of searchBookByTitle method, of class SQLiteBookDAO.
+     */
+    @Test
+    public void testSearchBookByIncompleteTitle() {
+        System.out.println("---------------------------------");
+        System.out.println("Search book: Incomplete Title");
+        String title = "harry";
+        String expectedTitle = "Harry Potter";
+        SQLiteBookDAO instance = new SQLiteBookDAO();        
+        List<Book> b = instance.searchBookByIncompleteTitle(title);
+        System.out.println(b.size());
+        assertEquals(expectedTitle, b.get(0).getTitle());
+        System.out.println(b.get(0).getTitle());
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }    
+    
+    /**
      * Test of searchBookByISBN method, of class SQLiteBookDAO.
      */
     @Test
@@ -168,7 +186,7 @@ public class SQLiteBookDAOTest {
         System.out.println("---------------------------------");
         System.out.println("getAll");
         SQLiteBookDAO instance = new SQLiteBookDAO();
-        int expResult = 3;
+        int expResult = 5;
         List<Book> result = instance.getAll();
         assertEquals(expResult, result.size());
         for (int i=0;i<result.size();i++){

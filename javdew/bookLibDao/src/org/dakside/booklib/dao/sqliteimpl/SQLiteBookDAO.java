@@ -37,7 +37,7 @@ public class SQLiteBookDAO implements BookDAO {
     @Override
     public List<Book> searchBookByTitle(String title) {
         List<Book> bookList = new ArrayList();        
-        // Dummy method
+
         if ((title == null) || (title.trim().isEmpty())) {            
             return null;
         }
@@ -53,11 +53,20 @@ public class SQLiteBookDAO implements BookDAO {
                 Book bookSearchResult = new Book();
                 // System.out.println(st.columnString(1));
                 bookSearchResult.setId(st.columnInt(0));
-                bookSearchResult.setTitle(st.columnString(1));                
+                bookSearchResult.setTitle(st.columnString(1));
+                bookSearchResult.setAuthor(st.columnString(2));
+                bookSearchResult.setYear(st.columnInt(3));
+                bookSearchResult.setPublisher(st.columnString(4));
+                bookSearchResult.setIsbn(st.columnString(5));
+                bookSearchResult.setBarcode(st.columnString(6));
+                bookSearchResult.setLanguage(st.columnString(7));
+                bookSearchResult.setPrice(st.columnInt(8));
+                bookSearchResult.setQuantity(st.columnInt(9));
+                
                 bookList.add(bookSearchResult);
             }
         } catch (SQLiteException ex) {
-            //Logger.getLogger(TestSqliteHelloWorld.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally{
             db.dispose();
         } //*/
@@ -80,7 +89,6 @@ public class SQLiteBookDAO implements BookDAO {
         book.setId(newId);
         
         SQLiteConnection db = ConnectionFactory.getConnection();
-        //String sqliteQuery = "INSERT INTO " + SQLiteBookTable.getBookTableName() + " (ID,Title) VALUES (?,?)";
         String sqliteQuery = "INSERT INTO " + SQLiteBookTable.getBookTableName() + " (ID,Title,Author,Year,Publisher,Isbn,BarCode,Language,Price,Quantity) "
                 + "VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
@@ -98,13 +106,13 @@ public class SQLiteBookDAO implements BookDAO {
             st.bind(9,book.getPrice());
             st.bind(10,book.getQuantity());
             
-            //System.out.println(sqliteQuery);
+            //System.out.println(st.toString());
             st.stepThrough();
         } catch (SQLiteException ex) {
-            //Logger.getLogger(TestSqliteHelloWorld.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally{
             db.dispose();
-        } //*/        
+        } 
     }
 
     @Override
@@ -125,7 +133,7 @@ public class SQLiteBookDAO implements BookDAO {
             st = db.prepare(sqliteQuery);
             st.step();
         } catch (SQLiteException ex) {
-            //Logger.getLogger(TestSqliteHelloWorld.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally{
             db.dispose();
         }
@@ -158,10 +166,10 @@ public class SQLiteBookDAO implements BookDAO {
                 bookList.add(bookSearchResult);
             }
         } catch (SQLiteException ex) {
-            //Logger.getLogger(TestSqliteHelloWorld.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally{
             db.dispose();
-        } //*/
+        }
         
         return bookList;
     }
@@ -175,14 +183,13 @@ public class SQLiteBookDAO implements BookDAO {
             
             st = db.prepare(sqliteQuery);
             while (st.step()) {
-                //System.out.println("Number of books: "+st.columnString(0));
                 return st.columnInt(0);
             }
         } catch (SQLiteException ex) {
-            //Logger.getLogger(TestSqliteHelloWorld.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally{
             db.dispose();
-        } //*/
+        }
         
         return 0;
     }    
@@ -199,12 +206,11 @@ public class SQLiteBookDAO implements BookDAO {
         String sqliteQuery = "SELECT * FROM " + SQLiteBookTable.getBookTableName() + " WHERE isbn='"+isbn+"'";
         try {
             SQLiteStatement st = null;
-            //st = db.prepare("SELECT * FROM Books WHERE title="+title);
             
             st = db.prepare(sqliteQuery);
             while (st.step()) {
                 Book bookSearchResult = new Book();
-                // System.out.println(st.columnString(1));
+
                 bookSearchResult.setId(st.columnInt(0));
                 bookSearchResult.setTitle(st.columnString(1));
                 bookSearchResult.setAuthor(st.columnString(2));
@@ -219,10 +225,10 @@ public class SQLiteBookDAO implements BookDAO {
                 bookList.add(bookSearchResult);
             }
         } catch (SQLiteException ex) {
-            //Logger.getLogger(TestSqliteHelloWorld.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally{
             db.dispose();
-        } //*/
+        }
         
         return bookList;    
     }
@@ -239,11 +245,9 @@ public class SQLiteBookDAO implements BookDAO {
         String sqliteQuery = "SELECT * FROM " + SQLiteBookTable.getBookTableName() + " WHERE id='"+id+"'";
         try {
             SQLiteStatement st = null;
-            //st = db.prepare("SELECT * FROM Books WHERE title="+title);
             
             st = db.prepare(sqliteQuery);
             while (st.step()) {                
-                // System.out.println(st.columnString(1));
                 bookSearchResult.setId(st.columnInt(0));
                 bookSearchResult.setTitle(st.columnString(1));
                 bookSearchResult.setAuthor(st.columnString(2));
@@ -258,10 +262,10 @@ public class SQLiteBookDAO implements BookDAO {
                 return bookSearchResult;
             }
         } catch (SQLiteException ex) {
-            //Logger.getLogger(TestSqliteHelloWorld.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally{
             db.dispose();
-        } //*/
+        }
         
         return null;    
     }
@@ -274,18 +278,16 @@ public class SQLiteBookDAO implements BookDAO {
         String sqliteQuery = "SELECT max(id) FROM " + SQLiteBookTable.getBookTableName() + ";";
         try {
             SQLiteStatement st = null;
-            //st = db.prepare("SELECT * FROM Books WHERE title="+title);
             
             st = db.prepare(sqliteQuery);
             while (st.step()) {                
-                // System.out.println(st.columnString(1));
                 maxID = st.columnInt(0);                
             }
         } catch (SQLiteException ex) {
-            //Logger.getLogger(TestSqliteHelloWorld.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally{
             db.dispose();
-        } //*/
+        }
         
         return maxID;        
     }
@@ -319,14 +321,51 @@ public class SQLiteBookDAO implements BookDAO {
             st.bind(8,book.getPrice());
             st.bind(9,book.getQuantity());
             
-            System.out.println(sqliteQuery);
             st.stepThrough();
         } catch (SQLiteException ex) {
-            ex.printStackTrace();
-            //Logger.getLogger(TestSqliteHelloWorld.class.getName()).log(Level.SEVERE, null, ex);
+            // ex.printStackTrace();
         } finally{
             db.dispose();
-        } //*/  
+        }
+    }
+
+    @Override
+    public List<Book> searchBookByIncompleteTitle(String title) {
+        List<Book> bookList = new ArrayList();        
+        if ((title == null) || (title.trim().isEmpty())) {            
+            return null;
+        }
+        
+        SQLiteConnection db = ConnectionFactory.getConnection();
+        String sqliteQuery = "SELECT * FROM " + SQLiteBookTable.getBookTableName() + " WHERE title LIKE '%"+title+"%'";
+        try {
+            SQLiteStatement st = null;
+            
+            st = db.prepare(sqliteQuery);
+            while (st.step()) {
+                Book bookSearchResult = new Book();
+                // System.out.println(st.columnString(1));
+                bookSearchResult.setId(st.columnInt(0));
+                bookSearchResult.setTitle(st.columnString(1));
+                bookSearchResult.setAuthor(st.columnString(2));
+                bookSearchResult.setYear(st.columnInt(3));
+                bookSearchResult.setPublisher(st.columnString(4));
+                bookSearchResult.setIsbn(st.columnString(5));
+                bookSearchResult.setBarcode(st.columnString(6));
+                bookSearchResult.setLanguage(st.columnString(7));
+                bookSearchResult.setPrice(st.columnInt(8));
+                bookSearchResult.setQuantity(st.columnInt(9));
+                
+                bookList.add(bookSearchResult);
+            }
+        } catch (SQLiteException ex) {
+
+        } finally{
+            db.dispose();
+        }
+        
+        return bookList;
+        
     }
 }
 

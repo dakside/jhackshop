@@ -33,10 +33,12 @@ import javax.json.*;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- *
+ * Source: GoogleBook
+ * http query return a json object
+ * 
  * @author Hoang Duc Chinh {@literal <dc.hoang.vn@gmail.com>}
  */
-public class JsonWebApiSearch implements WebSearch {
+public class GoogleBookWebApiSearch implements WebSearch {
 
     private String isbn;
     private Book book;
@@ -44,7 +46,7 @@ public class JsonWebApiSearch implements WebSearch {
 
     private final String URL_WEB_SOURCE = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
 
-    public JsonWebApiSearch() {
+    public GoogleBookWebApiSearch() {
         this.isbn = "";
         this.sourceUrl = "";
     }
@@ -68,7 +70,6 @@ public class JsonWebApiSearch implements WebSearch {
             // optional default is GET
             httpCon.setRequestMethod("GET");
 
-            //    InputStream is = urlObj.openStream();
             InputStream is = httpCon.getInputStream();
 
             JsonReader jsonReader = Json.createReader(is);
@@ -89,10 +90,8 @@ public class JsonWebApiSearch implements WebSearch {
             JsonObject jsonBookInfoObject = jsonBookObject.getJsonObject("volumeInfo");
 
             if (jsonBookInfoObject == null) {
-                //System.out.println("Not successful!\n");
                 return null;
             } else {
-                //JsonObject jsonBookTitleObject = jsonBookInfoObject.getJsonObject("title");
                 jsonStringInfo = jsonBookInfoObject.getJsonString("title");
                 if (jsonStringInfo != null) {
                     if (!this.isValidString(jsonStringInfo.getString())) {
@@ -150,16 +149,11 @@ public class JsonWebApiSearch implements WebSearch {
                     }
                 }
                 
-                //System.out.println(book.toString());
-                //book.setPrice(price);                
-                //System.out.println(jsonBookInfoObject.getString("title"));
                 return book;
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             return null;
         }
-
-        //return null;
     }
 }

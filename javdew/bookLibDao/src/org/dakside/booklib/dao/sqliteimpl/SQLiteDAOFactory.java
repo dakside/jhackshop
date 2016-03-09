@@ -20,7 +20,8 @@ import org.dakside.booklib.dao.BookDAO;
 import org.dakside.booklib.dao.DAOFactory;
 
 /**
- *
+ * SQLite Data Access Object Factory 
+ * 
  * @author Hoang Duc Chinh {@literal <dc.hoang.vn@gmail.com>}
  */
 public class SQLiteDAOFactory implements DAOFactory {

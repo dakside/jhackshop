@@ -28,9 +28,9 @@ import static org.junit.Assert.*;
  *
  * @author Hoang Duc Chinh {@literal <dc.hoang.vn@gmail.com>}
  */
-public class JsonWebApiSearchTest {
+public class GoogleBookWebApiSearchTest {
     
-    public JsonWebApiSearchTest() {
+    public GoogleBookWebApiSearchTest() {
     }
     
     @BeforeClass
@@ -50,14 +50,14 @@ public class JsonWebApiSearchTest {
     }
 
     /**
-     * Test of searchByISBN method, of class JsonWebApiSearch.
+     * Test of searchByISBN method, of class GoogleBookWebApiSearch.
      */
     @Test
     public void testSearchByISBN() {
         System.out.println("searchByISBN");
         //String isbn = "9780486299884";
         String isbn = "0603560768";        
-        JsonWebApiSearch instance = new JsonWebApiSearch();
+        GoogleBookWebApiSearch instance = new GoogleBookWebApiSearch();
         Book expResult = null;
         Book result = instance.searchByISBN(isbn);
         assertEquals(expResult, result);

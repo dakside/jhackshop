@@ -64,13 +64,13 @@ public class ConnectionFactory {
             // System.out.println(this.dbFile.getAbsolutePath());            
             //System.out.println(this.sqliteDBFile);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         } finally {
             if (input != null) {
                 try {
                     input.close();
                 } catch (IOException ex) {
-                    ex.printStackTrace();
+                    // ex.printStackTrace();
                 }
             }
         }

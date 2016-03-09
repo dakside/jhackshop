@@ -32,12 +32,21 @@ public interface BookDAO {
     List<Book> getAll();
 
     /**
-     *
+     * Search the book in database by exact title
+     * 
      * @param title title of the book to be search
      * @return a list of books found
      */
     List<Book> searchBookByTitle(String title);
 
+    /**
+     * Search in the database if any book title contains the input string
+     * 
+     * @param title title of the book to be search
+     * @return a list of books found
+     */
+    List<Book> searchBookByIncompleteTitle(String title);
+    
     /**
      * 
      * @param isbn isbn number of the book to be search

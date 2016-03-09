@@ -19,7 +19,7 @@ package org.dakside.booklib.search;
 import org.dakside.booklib.dto.Book;
 
 /**
- *
+ * WebSearch interface
  * @author Hoang Duc Chinh {@literal <dc.hoang.vn@gmail.com>}
  */
 public interface WebSearch {
